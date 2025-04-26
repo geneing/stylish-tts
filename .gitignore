@@ -1,3 +1,8 @@
 __pycache__
 *.pth
 *.wav
+output/*
+log/*
+.venv/*
+Data/*
+dataprep/*

@@ -27,7 +27,8 @@ class TextCleaner:
             try:
                 indexes.append(self.word_index_dictionary[char])
             except KeyError:
-                logger.error("Meld " + char + ": " + text)
+                #ei logger.error("Meld " + char + ": " + text)
+                pass
         return indexes
 
     def build_text_cleaner(self):

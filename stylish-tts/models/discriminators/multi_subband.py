@@ -160,7 +160,9 @@ class MultiScaleSubbandCQTDiscriminator(torch.nn.Module):
             "dilations": [1, 2, 4],
             "in_channels": 1,
             "out_channels": 1,
-            "n_octaves": [9, 9, 9],
+            # "n_octaves": [9, 9, 9],
+            "n_octaves": [8, 8, 8],
+
             "bins_per_octaves": [24, 36, 48],
         }
         cfg = Munch(multiscale_subband_cfg)

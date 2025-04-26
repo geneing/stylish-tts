@@ -1,4 +1,17 @@
 
+## Commands
+
+uv run python stylish-dataset/all-pitch.py --wavdir ../../Data/ --trainpath ../train_list_LibriTTSR_espeak.txt --valpath ../val_list_LibriTTSR_espeak.txt --split 96 --outpath pitch.safetensors
+
+uv run python stylish-dataset/all-pitch.py --wavdir ../../Data/ --trainpath ../train_list_LibriTTSR_espeak.short.txt --valpath ../val_list_LibriTTSR_espeak.short.txt --split 2 --outpath pitch.safetensors
+
+
+uv run python stylish-tts/train.py \
+    --model_config_path config/model.vocos.yml \
+    --config_path config/config_librittsr.yml \
+    --stage alignment \
+    --out_dir output
+
 ## Vocoders
 - [FreeV](https://github.com/BakerBunker/FreeV)
 - 
@@ -23,4 +36,5 @@
 - [Echogarden alignment/library](https://github.com/echogarden-project/echogarden)
 - [goruut](https://github.com/neurlang/goruut)
 - [misaki](https://github.com/hexgrad/misaki)
+
 

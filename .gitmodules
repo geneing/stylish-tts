@@ -1,0 +1,3 @@
+[submodule "dataprep/stylish-dataset"]
+	path = dataprep/stylish-dataset
+	url = https://github.com/Stylish-TTS/stylish-dataset.git

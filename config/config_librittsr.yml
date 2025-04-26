@@ -1,0 +1,82 @@
+training:
+  # log training data every this number of steps
+  log_interval: 100
+  # validate and save model every this number of steps
+  save_interval: 5000
+  # validate model every this number of steps
+  val_interval: 5000
+  device: "cuda"
+  # Keep this as 'no' if you have the VRAM.
+  # Lower precision slows training.
+  # "bf16", "fp16", or "no" for no mixed precision
+  mixed_precision: "no"
+  # Maximum number of segments per batch.
+  # Increasing this slows training overall even if
+  # epochs go by faster.
+  probe_batch_max: 32
+
+# Number of epochs to train each stage.
+training_plan:
+  alignment: 5
+  pre_acoustic: 3
+  acoustic: 5
+  pre_textual: 30
+  textual: 2
+  joint: 2
+  sbert: 12
+
+# See README.md for specifications on the dataset and
+# how to generate these files.
+dataset:
+  # train_data: "dataprep/train_list_LibriTTSR_espeak.short.txt"
+  # val_data: "dataprep/val_list_LibriTTSR_espeak.short.txt"
+  train_data: "dataprep/train_list_LibriTTSR_espeak.txt"
+  val_data: "dataprep/val_list_LibriTTSR_espeak.txt"
+  wav_path: "Data/"
+  pitch_path:  "Data/LibriTTSR/train-clean-460_16K/pitch.safetensors" #"dataprep/stylish-dataset/pitch.safetensors" # Data/LibriTTSR/train-clean-460_16K/pitch.safetensors"
+
+validation:
+  # Number of samples to generate per validation step
+  sample_count: 10
+  # Specific segments to use for validation
+  # force_samples:
+  # - "filename.from.val_data.txt"
+  # - "other.filename.from.val_data.txt"
+  # - "other.other.filename.from.val_data.txt"
+
+
+# Weights are pre-tuned. Do not change these unless you
+# know what you are doing.
+loss_weight:
+  # mel reconstruction loss
+  mel: 2
+  # generator loss
+  generator: 1
+  # speech-language model feature matching loss
+  slm: 0.2
+  # monotonic alignment loss
+  mono: 0.1
+  # sequence-to-sequence loss
+  s2s: 0.5
+  # pitch F0 reconstruction loss
+  pitch: 3
+  # energy reconstruction loss
+  energy: 1
+  # duration loss
+  duration: 1
+  # duration predictor probability output cross entropy loss
+  duration_ce: 1
+  # style reconstruction loss
+  style: 1
+  # magnitude/phase loss
+  magphase: 1
+  amplitude: 1
+  phase: 2
+  stft_reconstruction: 0.5
+
+# Learning rates are pre-tuned. Do not change these unless
+# you know what you are doing
+optimizer:
+  lr: 0.0001 # general learning rate
+  bert_lr: 0.00001 # learning rate for PLBERT
+  ft_lr: 0.00001 # learning rate for acoustic modules

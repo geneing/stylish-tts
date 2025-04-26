@@ -142,7 +142,8 @@ class FilePathDataset(torch.utils.data.Dataset):
         acoustic_feature = mel_tensor.squeeze()
         length_feature = acoustic_feature.size(1)
         acoustic_feature = acoustic_feature[:, : (length_feature - length_feature % 2)]
-
+        # print(f"{idx} {path} {mel_tensor.shape=} {acoustic_feature.shape=} {wave.shape=}")
+        
         # get reference sample
         if self.multispeaker:
             ref_data = (
@@ -170,6 +171,7 @@ class FilePathDataset(torch.utils.data.Dataset):
         pitch = None
         if path in self.pitch:
             pitch = torch.nan_to_num(self.pitch[path].detach().clone())
+            # print(f"{idx} {path} {pitch.shape=}")
         sentence_embedding = torch.from_numpy(
             sbert.encode([self.sentences[idx]], show_progress_bar=False)
         ).float()
@@ -312,6 +314,7 @@ class Collater(object):
                 ref_labels[bid] = ref_label
             waves[bid] = wave
             if pitch is not None:
+                # print(pitch.shape, mel.shape, max_mel_length)
                 pitches[bid] = pitch
             sentence_embeddings[bid] = sentence
             voiced[bid, :text_size] = voiced_one
